@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  model: MyString
+  vin: 1
+  color: MyString
+  user: one
+
+two:
+  model: MyString
+  vin: 1
+  color: MyString
+  user: two

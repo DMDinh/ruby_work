@@ -1,0 +1,47 @@
+1.Start new project
+  rails new dojo_ninjas
+
+2. Create 2 models. Dojo and Ninja
+  rails g model Dojo name:string city:string state:string
+  rails g model Ninja first_name:string last_name:string dojo:references
+
+3. Create 3 new dojos
+  Dojo.create(name:"CodingDojo", city:"San Jose", state:"CA")
+  Dojo.create(name:"CodingDojo", city:"Seattle", state:"WA")
+  Dojo.create(name:"CodingDojo", city:"New York", state:"NY")
+
+4. Add validations to Dojo
+  validates: :state, presence: true, length: {2}
+  validates: :first_name, :last_name, presence: true
+
+5. Make sure ninja belongs to dojo
+  has_many :ninjas
+  belongs_to :dojo
+
+6.using ruby console
+  1.Dojo.find(4).destroy
+  2.dojo4 = Dojo.new
+    dojo[:name] = "CodingDojo Mountain View"
+    dojo[:city] = "Mountain View"
+    dojo[:state] = "CA"
+  3.Ninja.new(first_name:"David", last_name:"David", dojo:Dojo.find(1))
+  Ninja.new(first_name:"John", last_name:"John", dojo:Dojo.find(1))
+  Ninja.new(first_name:"Bob", last_name:"Bob", dojo:Dojo.find(1))
+
+  4. Ninja.new(first_name:"Ninja", last_name:"Ninja", dojo:Dojo.find(2))
+  Ninja.new(first_name:"Ninja", last_name:"Ninja", dojo:Dojo.find(2))
+  Ninja.new(first_name:"Ninja", last_name:"Ninja", dojo:Dojo.find(2))
+
+  5. Ninja.new(first_name:"Ninja", last_name:"Ninja", dojo:Dojo.find(3))
+  Ninja.new(first_name:"Ninja", last_name:"Ninja", dojo:Dojo.find(3))
+  Ninja.new(first_name:"Ninja", last_name:"Ninja", dojo:Dojo.find(3))
+
+7.Find all the ninjas for the first, second, and third dojo
+  1.Dojo.find(1).ninjas
+  2.Dojo.find(2).ninjas
+  3.Dojo.find(3).ninjas
+
+8. Dojo.find(1).ninjas.order(first_name: :desc)
+  Dojo.find(2).ninjas.select"first_name"
+
+9.Dojo.find(5).delete

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Products</title>
+  </head>
+  <body>
+    <div class="container">
+  <table class="table">
+    <h1>Listing All Comments</h1>
+    <thead>
+      <tr>
+        <th>Comment</th>
+        <th> Posted At </th>
+        <th>Product</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @comments.each do |comment| %>
+      <tr>
+        <td><%=comment.comment%></td>
+        <td><%=comment.created_at%></td>
+        <td><%=comment.product.name%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <a href="/products">Products Page</a>
+</div>
+
+
+  </body>
+</html>

@@ -1,0 +1,22 @@
+
+<h1>Survey Form</h1>
+<form class="" action="/route" method="post">
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+  <p>Your Name:</p>
+  <input type="text" name="name" value="">
+  <p>Dojo Location: </p>
+  <select  name="select">
+    <option value="Sky High">Sky High</option>
+    <option value="Cave">Cave</option>
+    <option value="Under Ground">Under Ground</option>
+  </select>
+  <p>Favorite Language: </p>
+  <select class="" name="select2">
+    <option value="Jibberish">Jibberish</option>
+    <option value="Mumble">Mumble</option>
+    <option value="Non Sense">Non Sense</option>
+  </select>
+  <p>Comment (optional): </p>
+  <textarea name="text" rows="8" cols="80"></textarea>
+  <input type="submit" name="submit" value="Submit">
+</form>

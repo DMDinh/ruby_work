@@ -1,0 +1,12 @@
+<% if flash[:msg] %>
+    <div class="msg" style= "background: green"><h1><%= flash[:msg] %></h1></div>
+  <% end %>
+<h1>Submitted Information</h1>
+<h3>Name: <%=@name %></h3>
+<h3>Dojo Location: <%=@djl %></h3>
+<h3>Favorite Language: <%=@fl %></h3>
+<h3>Comment: <%=@text %></h3>
+<form class="" action="/" method="post">
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+<input type="submit" name="" value="Go Back">
+</form>

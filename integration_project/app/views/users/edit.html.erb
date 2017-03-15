@@ -1,0 +1,8 @@
+<h1>Edit Page</h1>
+
+<form class="" action="/edit" method="post">
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+
+  <input type="text" name="name" value="<%=@user.name%>">
+  <input type="submit" name="submit" value="Edit">
+</form>

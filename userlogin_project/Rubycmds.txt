@@ -1,0 +1,37 @@
+1. Start a project in rails
+  rails new (project name)
+  cd (project)
+  rails g model User first_name:string last_name:string email:string age:integer
+  rake db:migrate
+  rails c
+
+2.install gems.
+  in Gemfile add gem"hirb"
+  in terminal bundle install
+  after installation run rails c to get into console
+
+3.4. create a new user in table with information given. Leave id and dates empty and will auto fill
+  User.create(first_name:"David", last_name:"David", email:"david@david.david" age:420)
+
+5. .save
+  User2 = User.new(first_name:"test", last_name:"test", email:"test", age:00)
+  after this it will show on table and need to type save to verify input
+
+6. validates
+  in apps>models>User
+  add validates and the type of validations required
+
+7.types of validations
+  1.cant be empty. presence: true
+  2.age is integer. numericality: true
+  3.length: {in: 2..20}
+  4.
+
+8. Using rails console
+  1.throws error if validations are not met
+  2.
+  3.User.all
+  4.User.first
+  5.User.last
+  6.User.order(first_name: :desc)
+  7.User.find(4).update(last_name:"Whatever")

@@ -1,0 +1,64 @@
+<style>
+.container{
+  border: 2px solid black;
+}
+.user {
+  padding-bottom: 60px;
+}
+.all_secrets {
+  width: 580px;
+  height: 500px;
+  display: inline-block;
+  overflow: scroll;
+}
+.liked_secrets {
+  width: 540px;
+  height: 500px;
+  vertical-align: top;
+  display: inline-block;
+  overflow: scroll;
+
+}
+
+</style>
+
+<div class="container">
+  <div class="user">
+    <h1>Welcome <%= @user.fname %>!</h1>
+    <br>
+    <h4>User ID: <%= @user.id %></h4>
+    <h4>First Name: <%= @user.fname %></h4>
+    <h4>Last Name: <%= @user.lname %></h4>
+    <h4>Email: <%= @user.email %></h4>
+    <br>
+    <a href="/logout">Logout</a> | <a href="/users">Back</a>
+    <br>
+    <h2>Post a Secret</h2>
+    <form class="" action="/secret/<%= @user.id %>" method="post">
+      <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+      <textarea name="secret" rows="4" cols="80"></textarea>
+      <input type="submit" name="" value="Submit Secret">
+    </form>
+  </div>
+
+  <div class="all_secrets">
+    <h3>All <%= @user.fname %>'s Dirty Secrets</h3>
+    <% @secrets.each do |secret| %>
+    <h4>- <%= secret.content%></h4>
+    <p>Likes:<%= secret.likes.count %> </p>
+    <a href="#">Delete Secret</a>
+    <p>------------------------------------------------------------------------------</p>
+    <%end%>
+  </div>
+
+  <div class="liked_secrets">
+    <h3>Secrets Liked</h3>
+    <% @likes.each do |like| %>
+    <p>Posted By: <%= like.secret.user.fname %> </p>
+    <h4>- <%= like.secret.content %></h4>
+    <p>Likes: <%= like.secret.likes.count%></p>
+    <p>------------------------------------------------------------------------------</p>
+    <% end %>
+  </div>
+
+</div>

@@ -1,0 +1,93 @@
+Create project and models
+  rails new blog2_project
+
+  rails g model User first_name:string last_name:string email_address:string
+  rails g model Owner user:references blog:references
+  rails g model Message author:string message:string user:references post:references
+  rails g model Post title:string content:string user:references blog:references
+  rails g model Blog name:string description:string
+
+  rails db: migrate
+
+1. Using console create 5 users
+  User.create(first_name:"user1", last_name:"user1", email_address:"user1@user1.com")
+  User.create(first_name:"user2", last_name:"user2", email_address:"user2@user2.com")
+  User.create(first_name:"user3", last_name:"user3", email_address:"user3@user3.com")
+  User.create(first_name:"user4", last_name:"user4", email_address:"user4@user4.com")
+  User.create(first_name:"user5", last_name:"user5", email_address:"user5@user5.com")
+
+2. Create 5 blogs
+  Blog.create(name:"blog1", description:"description of blog1")
+  Blog.create(name:"blog2", description:"description of blog2")
+  Blog.create(name:"blog3", description:"description of blog3")
+  Blog.create(name:"blog4", description:"description of blog4")
+  Blog.create(name:"blog5", description:"description of blog5")
+
+3. Have firs 3 blogs owned by first user
+  Owner.create(user:User.find(1), blog:Blog.find(1))
+  Owner.create(user:User.find(1), blog:Blog.find(2))
+  Owner.create(user:User.find(1), blog:Blog.find(3))
+
+4. Have the 4th blog owned by second user
+  Owner.create(user:User.find(2), blog:Blog.find(4))
+
+5. Have the 5th blog owned by last user
+  Owner.create(user:User.last, blog:Blog.find(5))
+
+6. Have user 3 own all blogs created
+  Owner.update_all "user_id = 3"
+
+7. Have the first user create 3 posts for the blog with id 2.
+  Post.create(title:"post1", content:"content for post1", user:User.find(1), blog:Blog.find(2))
+  Post.create(title:"post2", content:"content for post2", user:User.find(1), blog:Blog.find(2))
+  Post.create(title:"post3", content:"content for post3", user:User.find(1), blog:Blog.find(2))
+
+8. Have the second user create 5 posts for the last Blog.
+  Post.create(title:"post1", content:"content for post1", user:User.find(2), blog:Blog.last)
+  Post.create(title:"post2", content:"content for post2", user:User.find(2), blog:Blog.last)
+  Post.create(title:"post3", content:"content for post3", user:User.find(2), blog:Blog.last)
+  Post.create(title:"post4", content:"content for post4", user:User.find(2), blog:Blog.last)
+  Post.create(title:"post5", content:"content for post5", user:User.find(2), blog:Blog.last)
+
+9. Have the 3rd User create several Posts for different Blogs
+Post.create(title:"post1", content:"content for post1", user:User.find(3), blog:Blog.last)
+Post.create(title:"post3", content:"content for post3", user:User.find(3), blog:Blog.find(2))
+Post.create(title:"post3", content:"content for post3", user:User.find(3), blog:Blog.find(3))
+
+10. Have the 3rd User create 2 messages for the first post created and 3 messages for the second post created
+Message.create(author:"User 3", message:"User 3 message!", user:User.find(3), post:Post.find(1))
+Message.create(author:"User 3", message:"User 3 message2!", user:User.find(3), post:Post.find(1))
+
+11. Have the 4th User create 3 messages for last post you created
+Message.create(author:"User 4", message:"User 4 message", user:User.find(4), post:Post.last)
+Message.create(author:"User 4", message:"User 4 message2", user:User.find(4), post:Post.last)
+Message.create(author:"User 4", message:"User 4 message3", user:User.find(4), post:Post.last)
+
+12. Change the owner of the 2nd Post to the last user
+Post.second.update(user_id: 5)
+
+13. Change the 2nd posts content to something else
+Post.second.update(content: "something else")
+
+14. Retrieve all blogs owned by the 3rd user
+User.find(3).blogs
+
+15. Retrieve all posts that were created by 3rd user
+User.find(3).posts
+
+16. Retrieve all messages left by the 3rd user
+User.find(3).messages
+
+17. Retrieve all posts associated with the first blog as well as who left these posts
+Blog.find(2).posts
+
+Post.select('users.*, posts.*').joins(:user).join(:messages).where('posts.blog_id = 2')
+
+18. Retrieve all messages associated with the first blog along with all the user information of those who left the messages
+Message.select('messages.*, users.*, posts.blog_id').joins(:user).joins(:post).where('posts.blog_id= 2')
+
+19. Grab all user information that own the first blog (make this work by allowing Blog.first.owners to work)
+Blog.find(1).users
+
+20. Change it so that the first blog is no longer owned by the first user
+Owner.first.update(user_id: 5)
